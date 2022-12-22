@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include<stdlib.h>
+int homepage(){
+	printf("\n");
+	printf("                                                     WELCOME TO HOMEPAGE                     \n\n");
+	printf("ENTER '1' FOR DETAILS\n");
+	printf("ENTER '2' FOR CONTACT DETAILS\n");
+	printf("ENTER '3' FOR YOUR PROFILE\n");
+	printf("\n");
+	int n;
+	printf("ENTER YOUR REQUIREMENT:");
+	scanf("%d",&n);
+	switch(n){
+		case 1:
+			details();
+			break;
+		case 2:
+			cd();
+			break;
+		case 3:
+			profile();
+			break;
+		default:
+			printf("you have entered wrong requirements\n");
+			break;
+	}
+}
+
+int details(){
+	printf("\n");
+	printf("WELCOME TO PAGE DETAILS\n\n");
+	printf("\n");
+	printf("1)IT IS WEBSITE WHERE YOU WOULD GET YOUR FULL ANALYSIS\n");
+	printf("2)YOU CAN ALSO CONTACT US ON OUR CINTACT PAGE\n");
+	printf("3)YOU CAN SHARE YOUR EXPERINCE WITH US\n");
+	printf("\n");
+}
+
+int cd(){
+	printf("WELCOME TO CONTACT DETAIL PAGE\n\n");
+	printf("\n");
+	printf("EMAIL ID:xyz@gmail.com\n");
+	printf("OFFFICE ADDRESS:ahmedabad sg highway\n");
+	printf("MOBILE NO:1234567895\n");
+	printf("\n");
+}
+int profile(){
+	printf("\n");
+	printf("YOUR PROFILE IS HERE\n");
+	printf("\n");
+	printf("weight between 65-85 is normal\n\n");
+	int w;
+	printf("ENTER YOUR WEIGHT:");
+	scanf("%d\n",&w);
+	if(w>=65 && w<=85){
+		printf("you are over weighted \n pls loose your weight!\n");
+	}
+	else if(w<65){
+		printf("your weight is normal\n");
+	}
+
+}
+int main() {
+	printf("\n");
+    printf("                                                HELLO! WELCOME TO MY WEBSITE           \n");
+    printf("========================================================================================================================\n");
+    printf("\n");
+    char uname[100]="admin";
+    int pass=123;
+    
+    char uid[10];
+    int pwd;int i;
+    
+    printf("ENTER YOUR USER USERNAME:");
+    scanf("%s",&uid);
+    printf("ENTER YOUR PASSWORD:");
+    scanf("%d",&pwd);
+
+	if((pwd!=pass)){
+		printf("*****************************************   YOU CAN TRY YOUR LUCK FOR 2 TIMES ONLY   **********************************\n");
+		for(i=1;i<3;i++){
+//			printf("ENTER YOUR USER USERNAME:");
+//    		scanf("%s",&uid);
+			printf("ENTER YOUR PASSWORD:");
+			scanf("%d",&pwd);
+			if(pwd==pass){
+				printf("your 'password'  and user id is correct\n");
+				break;			
+			}
+		}
+
+	}
+//	printf("YOU CAN WIAT FOR 15 SECONDS\n");
+//	#It looks like there is an error on the line if(strcmp(uname,uid)&&(pwd==pass)). 
+//	The strcmp() function returns 0 if the two strings are equal, but the && operator
+//	will only evaluate the second condition if the first condition is true. This means that if 
+//	the two strings are equal, the second condition will not be checked and the code inside 
+//	the if block will not be executed.so we use "||" operator.
+	
+	if(strcmp(uname,uid)==0||(pwd==pass)){
+    	printf("                                                 YOUR LOGIN IS SUCCESSFULL                                      \n");
+    	homepage();
+	}
+    return 0;
+}
+
