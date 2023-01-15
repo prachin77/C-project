@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include<stdlib.h>
+#include<ctype.h>
 int homepage(){
 	printf("\n");
-	printf("                                                     WELCOME TO HOMEPAGE                     \n\n");
+	printf("                                                   WELCOME TO HOMEPAGE                     \n\n");
 	printf("ENTER '1' FOR DETAILS\n");
 	printf("ENTER '2' FOR CONTACT DETAILS\n");
 	printf("ENTER '3' FOR YOUR PROFILE\n");
+	printf("ENTER '4' FOR STARTING YOUR GAME\n");
 	printf("\n");
 	int n;
 	printf("ENTER YOUR REQUIREMENT:");
@@ -20,6 +22,9 @@ int homepage(){
 		case 3:
 			profile();
 			break;
+		case 4:
+			game();
+			break;
 		default:
 			printf("you have entered wrong requirements\n");
 			break;
@@ -28,39 +33,93 @@ int homepage(){
 
 int details(){
 	printf("\n");
-	printf("WELCOME TO PAGE DETAILS\n\n");
+	printf("                                                  WELCOME TO PAGE DETAILS                             \n\n");
 	printf("\n");
-	printf("1)IT IS WEBSITE WHERE YOU WOULD GET YOUR FULL ANALYSIS\n");
-	printf("2)YOU CAN ALSO CONTACT US ON OUR CINTACT PAGE\n");
-	printf("3)YOU CAN SHARE YOUR EXPERINCE WITH US\n");
+	printf("1) IT IS WEBSITE WHERE YOU WOULD GET YOUR FULL ANALYSIS\n");
+	printf("2) YOU CAN ALSO CONTACT US ON OUR CONTACT PAGE\n");
+	printf("3) YOU CAN SHARE YOUR EXPERINCE WITH US\n\n");
+	printf("   PROJECT BY : PRACHIN NAYAK\n");
+	printf("   SEM-1 STUDENT FROM GANPAT UNIVERSITY ICT\n");
 	printf("\n");
 }
 
 int cd(){
-	printf("WELCOME TO CONTACT DETAIL PAGE\n\n");
+	printf("                                               WELCOME TO CONTACT DETAIL PAGE                         \n\n");
 	printf("\n");
-	printf("EMAIL ID:xyz@gmail.com\n");
-	printf("OFFFICE ADDRESS:ahmedabad sg highway\n");
-	printf("MOBILE NO:1234567895\n");
+	printf("OFFFICE ADDRESS : ahmedabad sg highway\n");
+	printf("EMAIL ID : xyz@gmail.com\n");
+	printf("MOBILE NO : 1234567895\n");
 	printf("\n");
 }
 int profile(){
 	printf("\n");
-	printf("YOUR PROFILE IS HERE\n");
+	printf("                                                    YOUR PROFILE IS HERE                               \n");
 	printf("\n");
-	printf("weight between 65-85 is normal\n\n");
+	printf("weight between 65-85 is normal\n\nabove 85 it is over weight\n\n");
 	int w;
+
 	printf("ENTER YOUR WEIGHT:");
-	scanf("%d\n",&w);
-	if(w>=65 && w<=85){
-		printf("you are over weighted \n pls loose your weight!\n");
+	scanf("%d",&w);
+	if(w>65){				
+		printf("=> you are over weighted \n=> pls loose your weight!\n\n");
+		printf("=> do u want healthy diet plan\n");
+		printf("=> type 'y' for yes and 'n' for no\n\n");
+		char ask;
+		printf("enter 'y' or 'n' : ");
+		scanf("%s",&ask);
+		printf("\n");
+		if(ask=='y'){
+			FILE *diet;
+			diet=fopen("diet.txt","r");
+			printf("               your diet plan\n\n");
+			char ch;
+			ch=fgetc(diet);
+			while(ch != EOF){
+				printf("%c",ch);
+				ch=fgetc(diet);
+			}	
+			fclose(diet);
+		}
+		else if(ask=='n'){
+			printf("thank you\n");
+		}
 	}
 	else if(w<65){
 		printf("your weight is normal\n");
-	}
+	}	
 
 }
-int main() {
+//printf("\n");
+int game(int argc, char *argv[]) {
+	printf("                                                 WELCOME TO GUESSING GAME                                      \n\n");
+  const char *healthy_foods[] = { "apple", "banana", "broccoli", "carrot", "kale", "orange" };
+  const int num_healthy_foods = sizeof(healthy_foods) / sizeof(healthy_foods[0]);
+
+  char guess[20];
+  int num_guesses = 0;
+
+  printf("I'm thinking of a healthy food. Can you guess what it is?\n\n");
+  while (1) {
+    printf("Enter your guess: ");
+    scanf("%s", guess);
+    num_guesses++;
+	int i;
+    for( i= 0; i < num_healthy_foods; i++) {
+      if (strcmp(guess, healthy_foods[i]) == 0) {
+        printf("You guessed it! The healthy food was %s.\n", healthy_foods[i]);
+        printf("It took you %d guess(es) to guess the correct answer.\n", num_guesses);
+        return 0;
+      }
+    }
+
+    printf("That's not a healthy food. Try again.\n");
+  }
+
+  return 0;
+}
+
+
+int main(void) {
 	printf("\n");
     printf("                                                HELLO! WELCOME TO MY WEBSITE           \n");
     printf("========================================================================================================================\n");
@@ -70,37 +129,33 @@ int main() {
     
     char uid[10];
     int pwd;int i;
-    
+    FILE *p=fopen("project.txt","w");
     printf("ENTER YOUR USER USERNAME:");
     scanf("%s",&uid);
+    fprintf(p," username = %s",uname);
     printf("ENTER YOUR PASSWORD:");
     scanf("%d",&pwd);
-
+    fclose(p);
 	if((pwd!=pass)){
 		printf("*****************************************   YOU CAN TRY YOUR LUCK FOR 2 TIMES ONLY   **********************************\n");
 		for(i=1;i<3;i++){
-//			printf("ENTER YOUR USER USERNAME:");
-//    		scanf("%s",&uid);
 			printf("ENTER YOUR PASSWORD:");
 			scanf("%d",&pwd);
 			if(pwd==pass){
-				printf("your 'password'  and user id is correct\n");
+				printf("\nyour password is correct\n");
 				break;			
 			}
 		}
 
 	}
-//	printf("YOU CAN WIAT FOR 15 SECONDS\n");
-//	#It looks like there is an error on the line if(strcmp(uname,uid)&&(pwd==pass)). 
-//	The strcmp() function returns 0 if the two strings are equal, but the && operator
-//	will only evaluate the second condition if the first condition is true. This means that if 
-//	the two strings are equal, the second condition will not be checked and the code inside 
-//	the if block will not be executed.so we use "||" operator.
 	
 	if(strcmp(uname,uid)==0||(pwd==pass)){
     	printf("                                                 YOUR LOGIN IS SUCCESSFULL                                      \n");
+    	p=fopen("project.txt","a");
+    	fprintf(p,"\n password = %d",pwd);
+    	fclose(p);
     	homepage();
 	}
+	
     return 0;
 }
-
